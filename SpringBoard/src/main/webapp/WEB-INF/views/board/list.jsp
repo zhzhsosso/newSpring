@@ -14,6 +14,7 @@
   	session : ${sessionScope.result }
   	param : ${param.result }
   	 --%>
+  	 ${pvo }
     
     <div class="box">
             <div class="box-header with-border">
@@ -50,11 +51,22 @@
             <!-- /.box-body -->
             <div class="box-footer clearfix">
               <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="#">«</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">»</a></li>
+              	<c:if test="${pvo.prev }">
+                	<li><a href="/board/listPage?page=${pvo.startPage-1 }">«</a></li>
+                </c:if>
+                
+                <c:forEach var="idx" begin="${pvo.startpage }" end="${pvo.endPage }">
+                	<li
+                	
+                	 	<c:out value="${idx == pvo.cri.page? 'class=active' : '' }"/>
+                	 
+                	 ><a href="/board/listPage?page=${idx }">${idx }</a></li>
+                </c:forEach>	
+                
+                <c:if test="${pvo.next }">
+                	<li><a href="/board/listPage?page=${pvo.endPage+1 }">«</a></li>
+                </c:if>
+               
               </ul>
             </div>
           </div>

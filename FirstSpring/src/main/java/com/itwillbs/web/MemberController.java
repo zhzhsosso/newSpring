@@ -44,13 +44,14 @@ public class MemberController {
 	// http://localhost:8080/web/insertForm(x)
 	//톰캣 path 설정후
 	// http://localhost:8080/member/insert (o)
+
 	//회원가입(insert)
 	@RequestMapping(value="insert", method= RequestMethod.GET)
 	public String joinGET() throws Exception{
 		mylog.info("/member/insertForm->정보입력창(view)이동");
 		//페이지 이동(컨트롤러 주소 포함)
 		return "/member/insertForm";
-	
+
 	}
 	//회원가입-처리(insert)
 	@RequestMapping(value="insert",method=RequestMethod.POST)
