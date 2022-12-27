@@ -64,5 +64,10 @@
    ]]>
   </select>
 
-
+	<!-- 게시판 글전체 개수 -->
+	
+	
+	<select resultType="int" id="countBoard">
+		select count(bno) from tbl_board 
+	</select>
 </mapper>

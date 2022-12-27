@@ -59,10 +59,19 @@ public class BoardServiceImpl implements BoardService{
 		 dao.deleteBoard(bno);
 	}
 
+	
 	@Override
 	public List<BoardVO> getListPage(Criteria cri) throws Exception {
 		return dao.getListPage(cri);
 	}
+
+	
+	
+	@Override
+	public int totalCnt() throws Exception {
+		return dao.totalCnt();
+	}
+	
 	
 	
 	

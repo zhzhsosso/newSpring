@@ -34,10 +34,13 @@ public interface BoardDAO {
 	//글정보 삭제
 	public void deleteBoard(Integer bno) throws Exception;
 	
-	//페이징 처리 구현된 리스트 조회
+	// 페이징 처리 구현된 리스트 조회
 	public List<BoardVO> getListPage(Integer page) throws Exception;
-	
+			
 	public List<BoardVO> getListPage(Criteria cri) throws Exception;
+			
+	// 전체 게시판 글 개수
+	public int totalCnt() throws Exception;
 	
 	
 }

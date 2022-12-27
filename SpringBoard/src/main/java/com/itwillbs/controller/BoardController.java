@@ -82,6 +82,44 @@ public class BoardController {
 		// 페이지 이동(/board/list.jsp)		
 	}
 	
+	// http://localhost:8080/board/listPage
+	// http://localhost:8080/board/listPage?page=2
+	// http://localhost:8080/board/listPage?perPageNum=30
+	// http://localhost:8080/board/listPage?page=3&perPageNum=20
+	@RequestMapping(value = "/listPage",method = RequestMethod.GET)
+	public String listPageGET(Criteria cri,HttpSession session,Model model) throws Exception {
+		mylog.debug(" /board/listPage 호출 -> DB정보 가져와서 출력 ");
+			
+			// 전달받은 정보 x
+			//mylog.debug(" 전달정보 : "+result);
+			// 세션객체 - 글 조회수 증가 체크정보
+			session.setAttribute("updateCheck", true);	
+			// 페이징 처리 객체 (강한결합 -> X)
+			// Criteria cri = new Criteria();
+			
+			// 서비스 -> DAO 게시판 리스트 가져오기
+			List<BoardVO> boardList = service.getListPage(cri);
+			
+			// 페이징처리 하단부 정보 준비 ->view 페이지로 전달
+			PageVO pvo = new PageVO();
+			pvo.setCri(cri);
+			//pvo.setTotalCount(8475);
+			mylog.debug("totalCnt : "+service.totalCnt());
+			pvo.setTotalCount(service.totalCnt()); // 작성되어있는 글 전체 개수
+			
+			model.addAttribute("pvo", pvo);
+			
+			// 연결되어 있는 뷰페이지로 정보 전달 (Model 객체)
+			model.addAttribute("boardList", boardList);
+			
+			// 페이지 이동(/board/list.jsp)	
+			return "/board/list";
+		}
+	
+	
+	
+	
+	
 	// http://localhost:8080/board/read?bno=1
 	
 	// @ModelAttribute : request.getParamater() 동작  -> Model 객체에 저장 (1:n관계)
@@ -162,39 +200,6 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	
-	// http://localhost:8080/board/listPage
-	// http://localhost:8080/board/listPage?page=2
-	// http://localhost:8080/board/listPage?perPageNum=30
-	// http://localhost:8080/board/listPage?page=3&perPageNum=20
-	@RequestMapping(value = "/listPage",method = RequestMethod.GET)
-	public String listPageGET(Criteria cri,HttpSession session,Model model) throws Exception {
-		mylog.debug(" /board/listPage 호출 -> DB정보 가져와서 출력 ");
-		
-		// 전달받은 정보 x
-//		mylog.debug(" 전달정보 : "+result);
-		
-		// 세션객체 - 글 조회수 증가 체크정보
-		session.setAttribute("updateCheck", true);	
-		//페이징 처리 객체
-//		Criteria cri = new Criteria();
-		
-		// 서비스 -> DAO 게시판 리스트 가져오기
-		List<BoardVO> boardList = service.getListPage(cri);
-		
-		//페이징처리 하단부 정보 준비 -> view 페이지로 전달
-		PageVO pvo = new PageVO();
-		pvo.setCri(cri);
-		pvo.setTotalCount(1281);
-		
-		model.addAttribute("pvo",pvo);
-		
-		// 연결되어 있는 뷰페이지로 정보 전달 (Model 객체)
-		model.addAttribute("boardList", boardList);
-		
-		// 페이지 이동(/board/list.jsp)		
-		return "/board/list";
-	}
 	
 	
 	
